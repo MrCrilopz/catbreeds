@@ -19,7 +19,6 @@ const _lineOnDark = Color(0xFF3A4450);
 const _danger = Color(0xFF9F1239);
 const _dangerOnDark = Color(0xFFFDA4AF);
 
-/// Paleta clara y oscura. El brillo lo elige el sistema en `CatbreedsApp`.
 abstract final class AppTheme {
   static ThemeData get light => _build(Brightness.light);
 
