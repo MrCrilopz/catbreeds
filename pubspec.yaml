@@ -29,8 +29,10 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   dio: ^5.11.1
+  equatable: ^3.0.0
   flutter:
     sdk: flutter
+  flutter_bloc: ^9.1.1
 
 dev_dependencies:
   flutter_test:
@@ -42,6 +44,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
+  bloc_test: ^10.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
