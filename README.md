@@ -8,4 +8,4 @@ Catálogo de razas de gatos domésticos.
 flutter run
 ```
 
-La clave de The Cat API va en `.env`, que no se versiona. El ejemplo vacío está en `.env.example`.
+La URL y la clave de The Cat API van en `.env`, que no se versiona. El ejemplo está en `.env.example`.
