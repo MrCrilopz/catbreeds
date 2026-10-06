@@ -1,4 +1,5 @@
 import 'package:catbreeds/core/constants/app_layout.dart';
+import 'package:catbreeds/features/breeds/presentation/widgets/breed_card.dart';
 import 'package:flutter/material.dart';
 
 class BreedSkeleton extends StatelessWidget {
@@ -7,7 +8,7 @@ class BreedSkeleton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = Theme.of(context).colorScheme.outline;
-    return Card(
+    return BreedCardSurface(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

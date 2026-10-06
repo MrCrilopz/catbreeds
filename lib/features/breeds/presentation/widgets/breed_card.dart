@@ -30,8 +30,7 @@ class BreedCard extends StatelessWidget {
       button: true,
       label: 'Más detalles de ${breed.name}',
       child: ExcludeSemantics(
-        child: Card(
-          clipBehavior: Clip.antiAlias,
+        child: BreedCardSurface(
           child: InkWell(
             onTap: onOpen,
             child: Column(
@@ -110,6 +109,49 @@ class BreedCard extends StatelessWidget {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class BreedCardSurface extends StatelessWidget {
+  const BreedCardSurface({required this.child, super.key});
+
+  final Widget child;
+
+  static const _edge = 1.5;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final primary = scheme.primary;
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(AppRadius.card),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            primary.withValues(alpha: 0.55),
+            primary.withValues(alpha: 0.14),
+          ],
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: primary.withValues(alpha: 0.22),
+            blurRadius: 18,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(_edge),
+        child: Material(
+          color: scheme.surfaceContainerLow,
+          borderRadius: BorderRadius.circular(AppRadius.card - _edge),
+          clipBehavior: Clip.antiAlias,
+          child: child,
         ),
       ),
     );

@@ -155,7 +155,7 @@ class _DetailBody extends StatelessWidget {
                   AppSpace.lg,
                   AppSpace.md,
                   AppSpace.lg,
-                  0,
+                  AppSpace.lg,
                 ),
           child: BreedPhoto(
             name: breed.name,

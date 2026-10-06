@@ -41,15 +41,19 @@ class BreedPhotoFrame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const radius = BorderRadius.vertical(top: Radius.circular(AppRadius.card));
+    const clip = BorderRadius.vertical(
+      top: Radius.circular(AppRadius.card - 1),
+    );
     return Padding(
       padding: padding,
       child: DecoratedBox(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppRadius.card),
+          borderRadius: radius,
           border: Border.all(color: Theme.of(context).colorScheme.outline),
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(AppRadius.card - 1),
+          borderRadius: clip,
           child: AspectRatio(aspectRatio: AppMeasure.photoAspect, child: child),
         ),
       ),
