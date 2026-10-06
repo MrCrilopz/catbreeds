@@ -54,3 +54,5 @@ app.*.map.json
 
 # Preparación personal. No forma parte del repositorio público.
 docs/sdd/
+
+devtools_options.yaml
