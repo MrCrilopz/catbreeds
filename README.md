@@ -65,6 +65,14 @@ flutter test
 
 Cubren el mapeo del JSON, el filtro, las transiciones del BLoC y las pantallas: tarjeta, búsqueda vacía, error con reintento, foto fija en el detalle y el segundo mínimo del inicio. No abren un socket hacia el API.
 
+El recorrido de punta a punta sí llama a The Cat API. Hace falta un dispositivo y la clave:
+
+```
+flutter test integration_test --dart-define-from-file=.env
+```
+
+Busca Abyssinian, abre la ficha, vuelve con el texto intacto y comprueba una búsqueda sin resultados.
+
 La cobertura es un informe aparte. Dice qué líneas tocaron las pruebas y no corta el build:
 
 ```
