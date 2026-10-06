@@ -2,7 +2,7 @@ name: catbreeds
 description: Catálogo de razas de gatos.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  cached_network_image: ^4.0.4
   dio: ^5.11.1
   equatable: ^3.0.0
   flutter:
@@ -51,22 +52,17 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
 
   fonts:
-    - family: Fraunces
+    - family: Plus Jakarta Sans
       fonts:
-        - asset: assets/fonts/Fraunces-Regular.ttf
+        - asset: assets/fonts/PlusJakartaSans-Regular.ttf
           weight: 400
-        - asset: assets/fonts/Fraunces-SemiBold.ttf
+        - asset: assets/fonts/PlusJakartaSans-SemiBold.ttf
           weight: 600
-    - family: Source Sans 3
-      fonts:
-        - asset: assets/fonts/SourceSans3-Regular.ttf
-          weight: 400
-        - asset: assets/fonts/SourceSans3-SemiBold.ttf
-          weight: 600
+        - asset: assets/fonts/PlusJakartaSans-Bold.ttf
+          weight: 700

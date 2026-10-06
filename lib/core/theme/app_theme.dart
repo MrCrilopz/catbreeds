@@ -1,21 +1,22 @@
+import 'package:catbreeds/core/constants/app_layout.dart';
 import 'package:flutter/material.dart';
 
-const _display = 'Fraunces';
-const _ui = 'Source Sans 3';
+const _ui = 'Plus Jakarta Sans';
 
-const _paper = Color(0xFFF7F5F0);
-const _ink = Color(0xFF293241);
-const _green = Color(0xFF52796F);
-const _greenOnDark = Color(0xFF8FB8AA);
-const _teal = Color(0xFF84A9AC);
-const _peach = Color(0xFFE9A87C);
+const _paper = Color(0xFFF9F6F0);
+const _ink = Color(0xFF2A2118);
+const _clay = Color(0xFFC85A32);
+const _clayOnDark = Color(0xFFE39274);
+const _sand = Color(0xFFD99B61);
+const _sage = Color(0xFF5E7C69);
+const _sageOnDark = Color(0xFF8FAE98);
 const _white = Color(0xFFFFFFFF);
-const _night = Color(0xFF161C22);
-const _nightSurface = Color(0xFF222A32);
-const _muted = Color(0xFF52606A);
-const _mutedOnDark = Color(0xFFA8B3B0);
-const _line = Color(0xFFE3DFD6);
-const _lineOnDark = Color(0xFF3A4450);
+const _night = Color(0xFF1A1410);
+const _nightSurface = Color(0xFF2A221C);
+const _muted = Color(0xFF6F675E);
+const _mutedOnDark = Color(0xFFC4B8AA);
+const _line = Color(0xFFE7E0D6);
+const _lineOnDark = Color(0xFF3E342C);
 const _danger = Color(0xFF9F1239);
 const _dangerOnDark = Color(0xFFFDA4AF);
 
@@ -28,12 +29,12 @@ abstract final class AppTheme {
     final isLight = brightness == Brightness.light;
     final scheme = ColorScheme(
       brightness: brightness,
-      primary: isLight ? _green : _greenOnDark,
-      onPrimary: isLight ? _white : _night,
-      secondary: _teal,
+      primary: isLight ? _clay : _clayOnDark,
+      onPrimary: _white,
+      secondary: _sand,
       onSecondary: isLight ? _ink : _night,
-      tertiary: _peach,
-      onTertiary: isLight ? _ink : _night,
+      tertiary: isLight ? _sage : _sageOnDark,
+      onTertiary: isLight ? _white : _night,
       error: isLight ? _danger : _dangerOnDark,
       onError: isLight ? _white : _night,
       surface: isLight ? _paper : _night,
@@ -63,14 +64,21 @@ abstract final class AppTheme {
       ),
       cardTheme: CardThemeData(
         color: scheme.surfaceContainerLow,
-        elevation: 0,
+        elevation: 1,
+        shadowColor: _ink.withValues(alpha: 0.12),
         margin: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppRadius.card),
+        ),
       ),
-      dividerTheme: DividerThemeData(color: scheme.outline, space: 1, thickness: 1),
+      dividerTheme: DividerThemeData(
+        color: scheme.outline,
+        space: 1,
+        thickness: 1,
+      ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          backgroundColor: _green,
+          backgroundColor: _clay,
           foregroundColor: _white,
           minimumSize: const Size(48, 48),
           textStyle: text.labelLarge,
@@ -78,7 +86,7 @@ abstract final class AppTheme {
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: scheme.primary,
+          foregroundColor: _clay,
           minimumSize: const Size(48, 48),
           textStyle: text.labelLarge,
         ),
@@ -87,19 +95,22 @@ abstract final class AppTheme {
         filled: true,
         fillColor: scheme.surfaceContainerLow,
         hintStyle: text.bodyLarge?.copyWith(color: scheme.onSurfaceVariant),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: AppSpace.lg,
+          vertical: AppSpace.md,
+        ),
         border: _fieldBorder(scheme.outline),
         enabledBorder: _fieldBorder(scheme.outline),
-        focusedBorder: _fieldBorder(scheme.primary, width: 2),
+        focusedBorder: _fieldBorder(_clay, width: 2),
       ),
-      progressIndicatorTheme: ProgressIndicatorThemeData(color: scheme.primary),
+      progressIndicatorTheme: const ProgressIndicatorThemeData(color: _clay),
       iconTheme: IconThemeData(color: scheme.onSurface),
     );
   }
 
   static OutlineInputBorder _fieldBorder(Color color, {double width = 1}) {
     return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(AppRadius.field),
       borderSide: BorderSide(color: color, width: width),
     );
   }
@@ -110,22 +121,18 @@ abstract final class AppTheme {
       displayColor: scheme.onSurface,
       fontFamily: _ui,
     );
-    TextStyle? display(TextStyle? style) {
-      return style?.copyWith(
-        fontFamily: _display,
-        fontWeight: FontWeight.w600,
-        color: scheme.onSurface,
-      );
+    TextStyle? title(TextStyle? style, {FontWeight weight = FontWeight.w600}) {
+      return style?.copyWith(fontWeight: weight, color: scheme.onSurface);
     }
 
     return base.copyWith(
-      displayLarge: display(base.displayLarge),
-      displayMedium: display(base.displayMedium),
-      displaySmall: display(base.displaySmall),
-      headlineLarge: display(base.headlineLarge),
-      headlineMedium: display(base.headlineMedium),
-      headlineSmall: display(base.headlineSmall),
-      titleLarge: display(base.titleLarge),
+      displayLarge: title(base.displayLarge, weight: FontWeight.w700),
+      displayMedium: title(base.displayMedium, weight: FontWeight.w700),
+      displaySmall: title(base.displaySmall, weight: FontWeight.w700),
+      headlineLarge: title(base.headlineLarge, weight: FontWeight.w700),
+      headlineMedium: title(base.headlineMedium, weight: FontWeight.w700),
+      headlineSmall: title(base.headlineSmall, weight: FontWeight.w700),
+      titleLarge: title(base.titleLarge, weight: FontWeight.w700),
     );
   }
 }
