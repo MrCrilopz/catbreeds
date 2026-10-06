@@ -22,11 +22,11 @@ class BreedSearchField extends StatelessWidget {
       onChanged: onChanged,
       textInputAction: TextInputAction.search,
       decoration: InputDecoration(
-        hintText: 'Buscar raza en inglés',
+        hintText: 'Search breeds',
         suffixIcon: controller.text.isEmpty
             ? null
             : IconButton(
-                tooltip: 'Limpiar búsqueda',
+                tooltip: 'Clear search',
                 onPressed: onClear,
                 icon: const Icon(Icons.clear),
               ),

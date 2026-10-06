@@ -10,7 +10,7 @@ void main() {
 
     expect(find.text('Catbreeds'), findsOneWidget);
     expect(
-      find.textContaining('Falta la clave de The Cat API'),
+      find.textContaining('The Cat API key is missing'),
       findsOneWidget,
     );
 

@@ -13,7 +13,7 @@ class EmptySearch extends StatelessWidget {
       padding: const EdgeInsets.all(AppSpace.xl),
       children: [
         Text(
-          'Ninguna raza coincide con «$query».',
+          'No breed matches "$query".',
           style: Theme.of(context).textTheme.titleMedium,
           textAlign: TextAlign.center,
         ),

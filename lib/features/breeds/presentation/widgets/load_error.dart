@@ -14,7 +14,7 @@ class LoadError extends StatelessWidget {
       padding: const EdgeInsets.all(AppSpace.xl),
       children: [
         Text(
-          'No pudimos cargar las razas. Revisa la conexión e inténtalo de nuevo.',
+          'We couldn\'t load the breeds. Check your connection and try again.',
           style: theme.textTheme.titleMedium,
           textAlign: TextAlign.center,
         ),
@@ -22,7 +22,7 @@ class LoadError extends StatelessWidget {
         Align(
           child: FilledButton(
             onPressed: onRetry,
-            child: const Text('Reintentar'),
+            child: const Text('Try again'),
           ),
         ),
       ],

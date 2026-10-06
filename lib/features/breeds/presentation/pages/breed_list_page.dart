@@ -167,7 +167,7 @@ class _Skeletons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      label: 'Cargando razas',
+      label: 'Loading breeds',
       child: ListView.separated(
         physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.fromLTRB(

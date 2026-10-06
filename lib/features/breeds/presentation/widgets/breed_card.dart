@@ -21,14 +21,14 @@ class BreedCard extends StatelessWidget {
     final description = breed.description.trim();
     final traits = breedTraits(breed.temperament);
     final stats = [
-      if (life.isNotEmpty) _Stat(Icons.favorite_border, '$life años'),
+      if (life.isNotEmpty) _Stat(Icons.favorite_border, '$life years'),
       if (coat.isNotEmpty) _Stat(Icons.pets, coat),
       if (weight.isNotEmpty) _Stat(Icons.monitor_weight_outlined, '$weight kg'),
     ];
 
     return Semantics(
       button: true,
-      label: 'Más detalles de ${breed.name}',
+      label: 'Details of ${breed.name}',
       child: ExcludeSemantics(
         child: BreedCardSurface(
           child: InkWell(
@@ -96,7 +96,7 @@ class BreedCard extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerRight,
                         child: Text(
-                          'Ver detalles',
+                          'See details',
                           style: theme.textTheme.labelLarge?.copyWith(
                             color: scheme.primary,
                             fontWeight: FontWeight.w700,

@@ -3,6 +3,20 @@ import 'package:catbreeds/core/constants/app_assets.dart';
 import 'package:catbreeds/core/constants/app_layout.dart';
 import 'package:flutter/material.dart';
 
+int breedPhotoCacheWidth(double logicalWidth, double devicePixelRatio) {
+  final width = logicalWidth.isFinite && logicalWidth > 0 ? logicalWidth : 360;
+  return (width * devicePixelRatio).round().clamp(1, 1600);
+}
+
+double listCardPhotoWidth(double viewportWidth) {
+  final board = viewportWidth > AppMeasure.content
+      ? AppMeasure.content
+      : viewportWidth;
+  final columns = viewportWidth >= AppMeasure.expanded ? 2 : 1;
+  final gap = columns == 2 ? AppSpace.lg : 0.0;
+  return (board - AppSpace.lg * 2 - gap) / columns;
+}
+
 class BreedPhoto extends StatelessWidget {
   const BreedPhoto({required this.name, this.url, this.heroTag, super.key});
 
@@ -74,11 +88,12 @@ class _NetworkBreedPhoto extends StatelessWidget {
         final width = constraints.maxWidth.isFinite
             ? constraints.maxWidth
             : 360.0;
-        final cacheWidth = (width * MediaQuery.devicePixelRatioOf(context))
-            .round()
-            .clamp(1, 1600);
+        final cacheWidth = breedPhotoCacheWidth(
+          width,
+          MediaQuery.devicePixelRatioOf(context),
+        );
         return Semantics(
-          label: 'Foto de $name',
+          label: 'Photo of $name',
           image: true,
           child: CachedNetworkImage(
             imageUrl: url,
@@ -106,7 +121,7 @@ class MissingBreedPhoto extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Semantics(
-      label: 'Sin foto',
+      label: 'No photo',
       image: true,
       child: ExcludeSemantics(
         child: ColoredBox(

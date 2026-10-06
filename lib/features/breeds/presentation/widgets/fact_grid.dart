@@ -17,19 +17,19 @@ class FactGrid extends StatelessWidget {
       if (life.isNotEmpty)
         _Fact(
           icon: Icons.favorite_border,
-          label: 'Longevidad',
-          value: '$life años',
+          label: 'Lifespan',
+          value: '$life years',
         ),
       if (weight.isNotEmpty)
         _Fact(
           icon: Icons.monitor_weight_outlined,
-          label: 'Peso',
+          label: 'Weight',
           value: '$weight kg',
         ),
       if (height.isNotEmpty)
-        _Fact(icon: Icons.straighten, label: 'Altura', value: '$height cm'),
+        _Fact(icon: Icons.straighten, label: 'Height', value: '$height cm'),
       if (coat.isNotEmpty)
-        _Fact(icon: Icons.pets, label: 'Pelaje', value: coat),
+        _Fact(icon: Icons.pets, label: 'Coat', value: coat),
     ];
     if (facts.isEmpty) {
       return const SizedBox.shrink();

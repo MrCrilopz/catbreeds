@@ -7,6 +7,7 @@ import 'package:catbreeds/features/breeds/presentation/bloc/breeds_event.dart';
 import 'package:catbreeds/features/breeds/presentation/bloc/breeds_state.dart';
 import 'package:catbreeds/features/breeds/presentation/pages/breed_detail_page.dart';
 import 'package:catbreeds/features/breeds/presentation/pages/breed_list_page.dart';
+import 'package:catbreeds/features/breeds/presentation/pages/splash_page.dart';
 import 'package:catbreeds/features/breeds/presentation/widgets/breed_card.dart';
 import 'package:catbreeds/features/breeds/presentation/widgets/fact_grid.dart';
 import 'package:flutter/material.dart';
@@ -42,12 +43,12 @@ void main() {
 
     expect(find.text('Siberian'), findsOneWidget);
     expect(find.text('Russia'), findsOneWidget);
-    expect(find.text('12 - 15 años'), findsOneWidget);
+    expect(find.text('12 - 15 years'), findsOneWidget);
     expect(find.text('Longhair'), findsWidgets);
     expect(find.text('3-7 kg'), findsOneWidget);
     expect(find.text('Active'), findsOneWidget);
     expect(find.text('Energetic'), findsOneWidget);
-    expect(find.text('Ver detalles'), findsOneWidget);
+    expect(find.text('See details'), findsOneWidget);
     expect(find.textContaining('fluffy'), findsOneWidget);
   });
 
@@ -65,7 +66,7 @@ void main() {
     await tester.enterText(find.byType(TextField), 'zzz');
     await tester.pumpAndSettle();
 
-    expect(find.text('Ninguna raza coincide con «zzz».'), findsOneWidget);
+    expect(find.text('No breed matches "zzz".'), findsOneWidget);
   });
 
   testWidgets('el error ofrece reintentar', (tester) async {
@@ -82,12 +83,12 @@ void main() {
 
     expect(
       find.text(
-        'No pudimos cargar las razas. Revisa la conexión e inténtalo de nuevo.',
+        'We couldn\'t load the breeds. Check your connection and try again.',
       ),
       findsOneWidget,
     );
 
-    await tester.tap(find.text('Reintentar'));
+    await tester.tap(find.text('Try again'));
     await tester.pumpAndSettle();
 
     expect(find.text('Siberian'), findsOneWidget);
@@ -107,7 +108,7 @@ void main() {
     await tester.pumpAndSettle();
 
     final scrollable = find.byType(Scrollable);
-    final missingPhoto = find.bySemanticsLabel('Sin foto');
+    final missingPhoto = find.bySemanticsLabel('No photo');
     expect(missingPhoto, findsOneWidget);
     expect(
       find.descendant(of: scrollable, matching: missingPhoto),
@@ -122,14 +123,14 @@ void main() {
       ),
       findsOneWidget,
     );
-    expect(find.text('12 - 15 años'), findsOneWidget);
+    expect(find.text('12 - 15 years'), findsOneWidget);
     expect(find.text('Russia'), findsOneWidget);
-    expect(find.text('Longevidad'), findsOneWidget);
+    expect(find.text('Lifespan'), findsOneWidget);
     expect(find.text('3-7 kg'), findsOneWidget);
-    expect(find.text('Temperamento'), findsOneWidget);
+    expect(find.text('Temperament'), findsOneWidget);
     expect(find.text('Active'), findsOneWidget);
-    expect(find.text('Acerca de'), findsOneWidget);
-    expect(find.text('Historia'), findsNothing);
+    expect(find.text('About'), findsOneWidget);
+    expect(find.text('History'), findsNothing);
   });
 
   testWidgets('en el ancho del teléfono los datos cortos comparten fila', (
@@ -147,10 +148,10 @@ void main() {
       ),
     );
 
-    final origin = tester.getTopLeft(find.text('Longevidad'));
-    final life = tester.getTopLeft(find.text('Peso'));
-    final weight = tester.getTopLeft(find.text('Altura'));
-    final height = tester.getTopLeft(find.text('Pelaje'));
+    final origin = tester.getTopLeft(find.text('Lifespan'));
+    final life = tester.getTopLeft(find.text('Weight'));
+    final weight = tester.getTopLeft(find.text('Height'));
+    final height = tester.getTopLeft(find.text('Coat'));
     expect(origin.dy, life.dy);
     expect(origin.dx, lessThan(life.dx));
     expect(weight.dy, height.dy);
@@ -197,7 +198,7 @@ void main() {
 
     await tester.tap(find.text('Siberian'));
     await tester.pumpAndSettle();
-    await tester.tap(find.byTooltip('Volver'));
+    await tester.tap(find.byTooltip('Back'));
     await tester.pumpAndSettle();
 
     expect(
@@ -226,9 +227,9 @@ void main() {
     );
 
     expect(find.text('Bare'), findsOneWidget);
-    expect(find.text('Ver detalles'), findsOneWidget);
-    expect(find.text('Temperamento'), findsNothing);
-    expect(find.textContaining('años'), findsNothing);
+    expect(find.text('See details'), findsOneWidget);
+    expect(find.text('Temperament'), findsNothing);
+    expect(find.textContaining('years'), findsNothing);
     expect(find.textContaining('kg'), findsNothing);
   });
 
@@ -263,6 +264,27 @@ void main() {
     expect(find.text('Active'), findsOneWidget);
     expect(find.text('…'), findsOneWidget);
     expect(find.text('Playful'), findsNothing);
+  });
+
+  testWidgets('el inicio espera un segundo antes de la lista', (tester) async {
+    final bloc = BreedsBloc(
+      _Repository([
+        [siberian],
+      ]),
+    );
+    addTearDown(bloc.close);
+
+    await tester.pumpWidget(_app(bloc, const SplashPage()));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 900));
+
+    expect(find.text('Discovering breeds'), findsOneWidget);
+    expect(find.byType(BreedListPage), findsNothing);
+
+    await tester.pump(const Duration(milliseconds: 100));
+    await tester.pump();
+
+    expect(find.byType(BreedListPage), findsOneWidget);
   });
 }
 

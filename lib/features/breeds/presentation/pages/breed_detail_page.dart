@@ -51,7 +51,7 @@ class _BreedDetailPageState extends State<BreedDetailPage> {
         return Scaffold(
           appBar: AppBar(
             leading: IconButton(
-              tooltip: 'Volver',
+              tooltip: 'Back',
               icon: const BackButtonIcon(),
               onPressed: () => Navigator.of(context).maybePop(),
             ),
@@ -60,7 +60,7 @@ class _BreedDetailPageState extends State<BreedDetailPage> {
           body: switch (state) {
             BreedsInitial() || BreedsLoading() => const Center(
               child: CircularProgressIndicator(
-                semanticsLabel: 'Cargando razas',
+                semanticsLabel: 'Loading breeds',
               ),
             ),
             BreedsFailure() => LoadError(
@@ -121,19 +121,19 @@ class _DetailBody extends StatelessWidget {
         ],
         if (traits.isNotEmpty) ...[
           const SizedBox(height: AppSpace.xl),
-          Text('Temperamento', style: heading),
+          Text('Temperament', style: heading),
           const SizedBox(height: AppSpace.md),
           TraitChips(temperament: breed.temperament),
         ],
         if (description.isNotEmpty) ...[
           const SizedBox(height: AppSpace.xl),
-          Text('Acerca de', style: heading),
+          Text('About', style: heading),
           const SizedBox(height: AppSpace.sm),
           Text(description, style: theme.textTheme.bodyLarge),
         ],
         if (history.isNotEmpty) ...[
           const SizedBox(height: AppSpace.xl),
-          Text('Historia', style: heading),
+          Text('History', style: heading),
           const SizedBox(height: AppSpace.sm),
           Text(history, style: theme.textTheme.bodyLarge),
         ],
@@ -192,7 +192,7 @@ class _MissingBreed extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(AppSpace.xl),
         child: Text(
-          'Esta raza no está en el catálogo.',
+          'This breed is not in the catalog.',
           style: Theme.of(context).textTheme.titleMedium,
           textAlign: TextAlign.center,
         ),
