@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:catbreeds/core/constants/app_assets.dart';
 import 'package:catbreeds/core/constants/app_layout.dart';
 import 'package:catbreeds/features/breeds/presentation/bloc/breeds_bloc.dart';
 import 'package:catbreeds/features/breeds/presentation/bloc/breeds_event.dart';
@@ -161,16 +162,19 @@ class _SplashMark extends StatelessWidget {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          DecoratedBox(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: scheme.surfaceContainerLow,
-              border: Border.all(color: scheme.outline),
-            ),
-            child: Center(
-              child: CustomPaint(
-                size: const Size(64, 52),
-                painter: _CatMarkPainter(scheme.primary),
+          Positioned.fill(
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: scheme.surfaceContainerLow,
+                border: Border.all(color: scheme.outline),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.all(AppSpace.xl),
+                child: Image(
+                  image: AssetImage(AppAssets.splashCat),
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
           ),
@@ -189,53 +193,4 @@ class _SplashMark extends StatelessWidget {
       ),
     );
   }
-}
-
-class _CatMarkPainter extends CustomPainter {
-  const _CatMarkPainter(this.color);
-
-  final Color color;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final stroke = Paint()
-      ..color = color
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2
-      ..strokeCap = StrokeCap.round
-      ..strokeJoin = StrokeJoin.round;
-    final fill = Paint()
-      ..color = color
-      ..style = PaintingStyle.fill;
-    final width = size.width;
-    final height = size.height;
-    canvas.drawPath(
-      Path()
-        ..moveTo(width * 0.22, height * 0.46)
-        ..lineTo(width * 0.30, height * 0.08)
-        ..lineTo(width * 0.46, height * 0.38),
-      stroke,
-    );
-    canvas.drawPath(
-      Path()
-        ..moveTo(width * 0.54, height * 0.38)
-        ..lineTo(width * 0.70, height * 0.08)
-        ..lineTo(width * 0.78, height * 0.46),
-      stroke,
-    );
-    canvas.drawOval(
-      Rect.fromCenter(
-        center: Offset(width / 2, height * 0.66),
-        width: width * 0.72,
-        height: height * 0.58,
-      ),
-      stroke,
-    );
-    canvas.drawCircle(Offset(width * 0.38, height * 0.62), 2.4, fill);
-    canvas.drawCircle(Offset(width * 0.62, height * 0.62), 2.4, fill);
-    canvas.drawCircle(Offset(width * 0.50, height * 0.76), 1.8, fill);
-  }
-
-  @override
-  bool shouldRepaint(_CatMarkPainter oldDelegate) => oldDelegate.color != color;
 }

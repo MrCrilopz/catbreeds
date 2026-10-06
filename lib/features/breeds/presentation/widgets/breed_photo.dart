@@ -109,7 +109,7 @@ class MissingBreedPhoto extends StatelessWidget {
           color: theme.colorScheme.outline,
           child: Image.asset(
             AppAssets.missingCat,
-            fit: BoxFit.cover,
+            fit: BoxFit.contain,
             width: double.infinity,
             height: double.infinity,
             errorBuilder: (_, _, _) => const SizedBox.expand(),
