@@ -84,8 +84,6 @@ Breed _breed(String id) {
     name: id == 'sibe' ? 'Siberian' : 'Siamese',
     origin: 'Russia',
     description: 'A fluffy cat.',
-    intelligence: 5,
-    adaptability: 4,
     lifeSpan: '12 - 15',
   );
 }

@@ -13,7 +13,11 @@ void main() {
 
   blocTest<BreedsBloc, BreedsState>(
     'cargar con éxito deja el catálogo visible',
-    build: () => BreedsBloc(_CatalogRepository([[siberian, abyssinian]])),
+    build: () => BreedsBloc(
+      _CatalogRepository([
+        [siberian, abyssinian],
+      ]),
+    ),
     act: (bloc) => bloc.add(const BreedsRequested()),
     expect: () => [
       const BreedsLoading(),
@@ -29,17 +33,16 @@ void main() {
     'un fallo de red reemplaza la carga',
     build: () => BreedsBloc(_FailingRepository(Failure.network)),
     act: (bloc) => bloc.add(const BreedsRequested()),
-    expect: () => [
-      const BreedsLoading(),
-      const BreedsFailure(Failure.network),
-    ],
+    expect: () => [const BreedsLoading(), const BreedsFailure(Failure.network)],
   );
 
   late _CatalogRepository repository;
 
   blocTest<BreedsBloc, BreedsState>(
     'la búsqueda reduce las visibles sin otra petición',
-    setUp: () => repository = _CatalogRepository([[siberian, abyssinian]]),
+    setUp: () => repository = _CatalogRepository([
+      [siberian, abyssinian],
+    ]),
     build: () => BreedsBloc(repository),
     seed: () => BreedsReady(
       catalog: [siberian, abyssinian],
@@ -77,12 +80,13 @@ void main() {
 
   blocTest<BreedsBloc, BreedsState>(
     'un refresco sustituye la lista y conserva el texto',
-    build: () => BreedsBloc(_CatalogRepository([[siberian, abyssinian]])),
-    seed: () => BreedsReady(
-      catalog: [abyssinian],
-      query: 'sib',
-      visible: const [],
+    build: () => BreedsBloc(
+      _CatalogRepository([
+        [siberian, abyssinian],
+      ]),
     ),
+    seed: () =>
+        BreedsReady(catalog: [abyssinian], query: 'sib', visible: const []),
     act: (bloc) => bloc.add(const BreedsRequested()),
     expect: () => [
       const BreedsLoading(),
@@ -143,8 +147,6 @@ Breed _breed(String id, String name) {
     name: name,
     origin: 'Unknown',
     description: 'A cat.',
-    intelligence: 5,
-    adaptability: 4,
     lifeSpan: '12 - 15',
   );
 }

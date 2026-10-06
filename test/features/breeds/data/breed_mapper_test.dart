@@ -20,11 +20,35 @@ void main() {
   });
 
   test('deja la foto vacía si no hay url ni id de respaldo', () {
-    final breed = mapBreeds([
-      _breed(imageUrl: null, referenceImageId: null),
-    ]).single;
+    final breed = mapBreeds([_breed(imageUrl: null, referenceImageId: null)])
+        .single;
 
     expect(breed.imageUrl, isNull);
+  });
+
+  test('toma temperamento, pelaje, peso y altura del JSON', () {
+    final breed = mapBreeds([
+      {
+        'id': 'abys',
+        'name': 'Abyssinian',
+        'origin': 'Egypt',
+        'life_span': '14-17',
+        'temperament': 'Active, Energetic',
+        'breed_group': 'Short-haired',
+        'description': 'Active.',
+        'history': 'An old breed.',
+        'country_code': 'EG',
+        'weight': {'metric': '3.6-5.4'},
+        'height': {'metric': '25-30'},
+      },
+    ]).single;
+
+    expect(breed.temperament, 'Active, Energetic');
+    expect(breed.breedGroup, 'Short-haired');
+    expect(breed.weight, '3.6-5.4');
+    expect(breed.height, '25-30');
+    expect(breed.history, 'An old breed.');
+    expect(breed.countryCode, 'EG');
   });
 
   test('acepta una descripción vacía o ausente', () {
@@ -33,29 +57,26 @@ void main() {
   });
 
   test('rechaza un tipo inesperado o un catálogo vacío', () {
-    expect(
-      () => mapBreeds([_breed(intelligence: 'alta')]),
-      throwsA(Failure.unexpected),
-    );
+    expect(() => mapBreeds([_breed(name: 1)]), throwsA(Failure.unexpected));
     expect(() => mapBreeds(const []), throwsA(Failure.unexpected));
     expect(() => mapBreeds(null), throwsA(Failure.unexpected));
   });
 }
 
 Map<String, dynamic> _breed({
+  Object? name = 'Siberian',
   Object? description = 'A fluffy cat.',
-  Object? intelligence = 5,
-  Object? adaptability = 5,
   Object? imageUrl = 'https://cdn2.thecatapi.com/images/sibe.jpg',
   Object? referenceImageId = 'sibe',
 }) {
   return {
     'id': 'sibe',
-    'name': 'Siberian',
+    'name': ?name,
     'origin': 'Russia',
     'life_span': '12 - 15',
-    'intelligence': intelligence,
-    'adaptability': adaptability,
+    'temperament': 'Active',
+    'breed_group': 'Longhair',
+    'weight': {'metric': '3-7'},
     'description': ?description,
     'reference_image_id': ?referenceImageId,
     if (imageUrl != null) 'image': {'url': imageUrl},

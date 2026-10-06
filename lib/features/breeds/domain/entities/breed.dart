@@ -4,9 +4,13 @@ final class Breed {
     required this.name,
     required this.origin,
     required this.description,
-    required this.intelligence,
-    required this.adaptability,
     required this.lifeSpan,
+    this.temperament = '',
+    this.breedGroup = '',
+    this.weight = '',
+    this.height = '',
+    this.history = '',
+    this.countryCode = '',
     this.imageUrl,
   });
 
@@ -14,9 +18,13 @@ final class Breed {
   final String name;
   final String origin;
   final String description;
-  final int intelligence;
-  final int adaptability;
   final String lifeSpan;
+  final String temperament;
+  final String breedGroup;
+  final String weight;
+  final String height;
+  final String history;
+  final String countryCode;
   final String? imageUrl;
 
   @override
@@ -26,9 +34,13 @@ final class Breed {
         other.name == name &&
         other.origin == origin &&
         other.description == description &&
-        other.intelligence == intelligence &&
-        other.adaptability == adaptability &&
         other.lifeSpan == lifeSpan &&
+        other.temperament == temperament &&
+        other.breedGroup == breedGroup &&
+        other.weight == weight &&
+        other.height == height &&
+        other.history == history &&
+        other.countryCode == countryCode &&
         other.imageUrl == imageUrl;
   }
 
@@ -38,9 +50,13 @@ final class Breed {
     name,
     origin,
     description,
-    intelligence,
-    adaptability,
     lifeSpan,
+    temperament,
+    breedGroup,
+    weight,
+    height,
+    history,
+    countryCode,
     imageUrl,
   );
 }

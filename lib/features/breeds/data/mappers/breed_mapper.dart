@@ -23,14 +23,7 @@ List<Breed> mapBreeds(Object? data) {
 Breed mapBreed(BreedDto dto) {
   final id = dto.id;
   final name = dto.name;
-  final intelligence = dto.intelligence;
-  final adaptability = dto.adaptability;
-  if (id == null ||
-      id.isEmpty ||
-      name == null ||
-      name.isEmpty ||
-      intelligence == null ||
-      adaptability == null) {
+  if (id == null || id.isEmpty || name == null || name.isEmpty) {
     throw Failure.unexpected;
   }
 
@@ -39,9 +32,13 @@ Breed mapBreed(BreedDto dto) {
     name: name,
     origin: dto.origin ?? '',
     description: dto.description ?? '',
-    intelligence: intelligence,
-    adaptability: adaptability,
     lifeSpan: dto.lifeSpan ?? '',
+    temperament: dto.temperament ?? '',
+    breedGroup: dto.breedGroup ?? '',
+    weight: dto.weight ?? '',
+    height: dto.height ?? '',
+    history: dto.history ?? '',
+    countryCode: dto.countryCode ?? '',
     imageUrl: _imageUrl(dto),
   );
 }

@@ -9,10 +9,13 @@ void main() {
     _breed(id: 'abys', name: 'Abyssinian'),
   ];
 
-  test('una consulta vacía o en blanco devuelve el catálogo en el mismo orden', () {
-    expect(filterBreeds(breeds, ''), breeds);
-    expect(filterBreeds(breeds, '   '), breeds);
-  });
+  test(
+    'una consulta vacía o en blanco devuelve el catálogo en el mismo orden',
+    () {
+      expect(filterBreeds(breeds, ''), breeds);
+      expect(filterBreeds(breeds, '   '), breeds);
+    },
+  );
 
   test('compara el nombre sin distinguir mayúsculas', () {
     expect(filterBreeds(breeds, 'SIB'), [breeds.first]);
@@ -34,10 +37,10 @@ void main() {
       _breed(id: 'abys', name: 'Abyssinian'),
     ];
 
-    expect(
-      filterBreeds(catalog, 'ba').map((breed) => breed.id),
-      ['bali', 'bamb'],
-    );
+    expect(filterBreeds(catalog, 'ba').map((breed) => breed.id), [
+      'bali',
+      'bamb',
+    ]);
   });
 }
 
@@ -51,8 +54,6 @@ Breed _breed({
     name: name,
     origin: origin,
     description: 'A calm cat.',
-    intelligence: 5,
-    adaptability: 4,
     lifeSpan: '12 - 15',
   );
 }
