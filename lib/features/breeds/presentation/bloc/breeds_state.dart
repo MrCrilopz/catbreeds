@@ -22,14 +22,16 @@ final class BreedsReady extends BreedsState {
     required this.catalog,
     required this.query,
     required this.visible,
+    this.revision = 0,
   });
 
   final List<Breed> catalog;
   final String query;
   final List<Breed> visible;
+  final int revision;
 
   @override
-  List<Object?> get props => [catalog, query, visible];
+  List<Object?> get props => [catalog, query, visible, revision];
 }
 
 final class BreedsFailure extends BreedsState {

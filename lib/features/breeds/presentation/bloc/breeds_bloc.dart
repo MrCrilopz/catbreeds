@@ -17,11 +17,18 @@ final class BreedsBloc extends Bloc<BreedsEvent, BreedsState> {
     BreedsRequested event,
     Emitter<BreedsState> emit,
   ) async {
-    final query = switch (state) {
+    final current = state;
+    final query = switch (current) {
       BreedsReady(:final query) => query,
       _ => '',
     };
-    emit(const BreedsLoading());
+    final revision = switch (current) {
+      BreedsReady(:final revision) => revision + 1,
+      _ => 0,
+    };
+    if (current is! BreedsReady) {
+      emit(const BreedsLoading());
+    }
 
     try {
       final catalog = await _repository.fetchBreeds();
@@ -30,6 +37,7 @@ final class BreedsBloc extends Bloc<BreedsEvent, BreedsState> {
           catalog: catalog,
           query: query,
           visible: filterBreeds(catalog, query),
+          revision: revision,
         ),
       );
     } on Failure catch (failure) {
@@ -48,6 +56,7 @@ final class BreedsBloc extends Bloc<BreedsEvent, BreedsState> {
         catalog: current.catalog,
         query: event.query,
         visible: filterBreeds(current.catalog, event.query),
+        revision: current.revision,
       ),
     );
   }

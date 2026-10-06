@@ -89,11 +89,34 @@ void main() {
         BreedsReady(catalog: [abyssinian], query: 'sib', visible: const []),
     act: (bloc) => bloc.add(const BreedsRequested()),
     expect: () => [
-      const BreedsLoading(),
       BreedsReady(
         catalog: [siberian, abyssinian],
         query: 'sib',
         visible: [siberian],
+        revision: 1,
+      ),
+    ],
+  );
+
+  blocTest<BreedsBloc, BreedsState>(
+    'un refresco con los mismos datos igual termina',
+    build: () => BreedsBloc(
+      _CatalogRepository([
+        [siberian, abyssinian],
+      ]),
+    ),
+    seed: () => BreedsReady(
+      catalog: [siberian, abyssinian],
+      query: '',
+      visible: [siberian, abyssinian],
+    ),
+    act: (bloc) => bloc.add(const BreedsRequested()),
+    expect: () => [
+      BreedsReady(
+        catalog: [siberian, abyssinian],
+        query: '',
+        visible: [siberian, abyssinian],
+        revision: 1,
       ),
     ],
   );
